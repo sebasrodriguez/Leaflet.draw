@@ -1,6 +1,10 @@
 L.MapBounds = {};
 
 L.Draw.MapBounds = L.Handler.extend({
+	statics: {
+		TYPE: 'mapBounds'
+	},
+
 	includes: L.Mixin.Events,
 
 	initialize: function (map, options) {
@@ -8,6 +12,7 @@ L.Draw.MapBounds = L.Handler.extend({
 		this._container = map._container;
 		this._overlayPane = map._panes.overlayPane;
 		this._popupPane = map._panes.popupPane;
+		this.type = L.Draw.MapBounds.TYPE;
 
 		// Merge default shapeOptions options with custom shapeOptions
 		if (options && options.shapeOptions) {
@@ -23,7 +28,9 @@ L.Draw.MapBounds = L.Handler.extend({
 
 		this.fire('enabled', { handler: this.type });
 
-		this._map.fire('draw:created', { layer: this._shape, layerType: this.type });
+		if(this._shape){
+			this._fireCreatedEvent(this._shape);
+		}
 	},
 
 	disable: function () {

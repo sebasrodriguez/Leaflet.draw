@@ -36,12 +36,12 @@ task('build', {async: true}, function () {
     build.build(complete);
 });
 
-desc('Run PhantomJS tests');
-task('test', ['lint', 'lintspec'], {async: true}, function () {
-    build.test(complete);
-});
+// desc('Run PhantomJS tests');
+// task('test', ['lint', 'lintspec'], {async: true}, function () {
+//     build.test(complete);
+// });
 
-task('default', ['test', 'build']);
+task('default', ['build']);
 
 jake.addListener('complete', function () {
     process.exit();
