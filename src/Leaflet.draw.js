@@ -20,7 +20,8 @@ L.drawLocal = {
 				polygon: 'Draw a polygon',
 				rectangle: 'Draw a rectangle',
 				circle: 'Draw a circle',
-				marker: 'Draw a marker'
+				marker: 'Draw a marker',
+				mapBounds: 'Draw a rectangle on the map bounds'
 			}
 		},
 		handlers: {
@@ -58,6 +59,8 @@ L.drawLocal = {
 				tooltip: {
 					end: 'Release mouse to finish drawing.'
 				}
+			},
+			mapBounds: {
 			}
 		}
 	},

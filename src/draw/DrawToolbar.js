@@ -9,7 +9,8 @@ L.DrawToolbar = L.Toolbar.extend({
 		polygon: {},
 		rectangle: {},
 		circle: {},
-		marker: {}
+		marker: {},
+		mapBounds: {}
 	},
 
 	initialize: function (options) {
@@ -52,6 +53,11 @@ L.DrawToolbar = L.Toolbar.extend({
 				enabled: this.options.marker,
 				handler: new L.Draw.Marker(map, this.options.marker),
 				title: L.drawLocal.draw.toolbar.buttons.marker
+			},
+			{
+				enabled: this.options.mapBounds,				
+				handler: new L.Draw.MapBounds(map, this.options.mapBounds),
+				title: L.drawLocal.draw.toolbar.buttons.mapBounds	
 			}
 		];
 	},
