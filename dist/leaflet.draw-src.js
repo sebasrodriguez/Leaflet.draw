@@ -2944,15 +2944,14 @@ L.EditToolbar.Delete = L.Handler.extend({
 		if (this._enabled || !this._hasAvailableLayers()) {
 			return;
 		}
-		this.fire('enabled', { handler: this.type});
-
-		this._map.fire('draw:deletestart', { handler: this.type });
-
-		L.Handler.prototype.enable.call(this);
-
-		this._deletableLayers
-			.on('layeradd', this._enableLayerDelete, this)
-			.on('layerremove', this._disableLayerDelete, this);
+		
+		var layers = this._deletableLayers.getLayers();
+		for(var i=0; i<layers.length; i++) {
+			this._removeLayer({
+				layer: layers[i]
+			});
+		}
+		this._map.fire('draw:deleted', { layers: this._deletableLayers });
 	},
 
 	disable: function () {
@@ -3011,7 +3010,7 @@ L.EditToolbar.Delete = L.Handler.extend({
 
 	_enableLayerDelete: function (e) {
 		var layer = e.layer || e.target || e;
-
+		
 		layer.on('click', this._removeLayer, this);
 	},
 
@@ -3027,9 +3026,7 @@ L.EditToolbar.Delete = L.Handler.extend({
 	_removeLayer: function (e) {
 		var layer = e.layer || e.target || e;
 
-		this._deletableLayers.removeLayer(layer);
-
-		this._deletedLayers.addLayer(layer);
+		this._deletableLayers.removeLayer(layer);		
 
 		layer.fire('deleted');
 	},
